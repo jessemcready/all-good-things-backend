@@ -1,0 +1,32 @@
+class PostSerializer < ActiveModel::Serializer
+  attributes :id, :content, :comments, :likes, :user, :created_at, :updated_at
+
+  def user
+    foundUser = User.all.find do |user|
+      user.id == object.object.user_id
+    end
+    foundUser.slice(:name, :email)
+  end
+
+  def likes
+    likes = Like.where(post_id: object.object.id)
+    likes.map do |like|
+      {
+        id: like.id,
+        user: like.user.slice(:name, :email)
+      }
+    end
+  end
+
+  def comments
+    comments = Comment.where(post_id: object.object.id)
+    comments.map do |comment|
+      {
+        id: comment.id,
+        user: comment.user.slice(:name, :email),
+        content: comment.content
+      }
+    end
+  end
+
+end
