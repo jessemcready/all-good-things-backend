@@ -4,10 +4,20 @@ class UserSerializer < ActiveModel::Serializer
   def followers
     relationships = Relationship.all.where(follower_id: object.object.id)
     relationships.map do |relationship|
+      posts = relationship.followee.posts.map do |post|
+        user = User.find(post.user_id)
+        {
+          id: post.id,
+          user_id: user.id,
+          username: user.name,
+          content: post.content
+        }
+      end
       {
         id: relationship.followee.id,
         name: relationship.followee.name,
-        email: relationship.followee.email
+        email: relationship.followee.email,
+        posts: posts
       }
     end
   end
@@ -15,10 +25,19 @@ class UserSerializer < ActiveModel::Serializer
   def followees
     relationships = Relationship.all.where(followee_id: object.object.id)
     relationships.map do |relationship|
+      posts = relationship.follower.posts.map do |post|
+        user = User.find(post.user_id)
+        {
+          id: post.id,
+          user: user.name,
+          content: post.content
+        }
+      end
       {
         id: relationship.follower.id,
         name: relationship.follower.name,
-        email: relationship.follower.email
+        email: relationship.follower.email,
+        posts: posts
       }
     end
   end

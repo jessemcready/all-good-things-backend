@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       resources :posts, except: [:update, :edit]
       resources :likes, only: [:index, :create, :delete]
       resources :relationships, only: [:index, :create, :delete]
+
+      post '/login', to: 'users#login'
     end
   end
 
