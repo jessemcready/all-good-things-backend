@@ -21,7 +21,7 @@ class Api::V1::PostsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @post = Post.find(params[:id])
     @post.destroy
     render json: { message: 'deleted' }, status: :ok

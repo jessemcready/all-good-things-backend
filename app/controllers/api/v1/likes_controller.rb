@@ -16,7 +16,7 @@ class Api::V1::LikesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @like = Like.find(params[:id])
     @like.destroy
     render json: { message: 'deleted' }, status: :ok

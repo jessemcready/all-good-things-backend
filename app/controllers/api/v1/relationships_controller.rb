@@ -16,7 +16,7 @@ class Api::V1::RelationshipsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @relationship = Relationship.find(params[:id])
     @relationship.destroy
     render json: { message: 'deleted' }, status: :ok
