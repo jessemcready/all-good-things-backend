@@ -6,9 +6,10 @@ Rails.application.routes.draw do
       resources :users, except: [:edit]
       resources :comments, except: [:update, :edit]
       resources :posts, except: [:update, :edit]
-      resources :likes, only: [:index, :create, :delete]
-      resources :relationships, only: [:index, :create, :delete]
+      resources :likes, only: [:index, :create, :destroy]
+      resources :relationships, only: [:index, :create]
 
+      delete '/relationships', to: 'relationships#destroy'
       post '/login', to: 'users#login'
     end
   end
