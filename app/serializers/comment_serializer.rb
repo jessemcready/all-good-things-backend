@@ -3,7 +3,6 @@ class CommentSerializer < ActiveModel::Serializer
 
   def user
     foundUser = User.all.find do |user|
-      byebug
       user.id == object.user_id
     end
     foundUser.slice(:name, :email)

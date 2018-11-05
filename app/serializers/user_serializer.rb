@@ -7,6 +7,12 @@ class UserSerializer < ActiveModel::Serializer
     end
   end
 
+  def posts
+    object.posts.map do |post|
+      PostSerializer.new(post)
+    end
+  end
+
   def followers
     relationships = Relationship.all.where(follower_id: object.object.id)
     relationships.map do |relationship|
