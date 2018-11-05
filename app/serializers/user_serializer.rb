@@ -1,6 +1,12 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :posts, :likes, :comments, :followers, :followees, :created_at, :updated_at
 
+  def commentFormat(comments)
+    comments.map do |comment|
+      CommentSerializer.new(comment)
+    end
+  end
+
   def followers
     relationships = Relationship.all.where(follower_id: object.object.id)
     relationships.map do |relationship|
@@ -10,7 +16,8 @@ class UserSerializer < ActiveModel::Serializer
           id: post.id,
           user_id: user.id,
           username: user.name,
-          content: post.content
+          content: post.content,
+          comments: commentFormat(post.comments)
         }
       end
       {
@@ -30,7 +37,8 @@ class UserSerializer < ActiveModel::Serializer
         {
           id: post.id,
           user: user.name,
-          content: post.content
+          content: post.content,
+          comments: commentFormat(post.comments)
         }
       end
       {

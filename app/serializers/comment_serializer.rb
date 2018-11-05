@@ -3,14 +3,15 @@ class CommentSerializer < ActiveModel::Serializer
 
   def user
     foundUser = User.all.find do |user|
-      user.id == object.object.user_id
+      byebug
+      user.id == object.user_id
     end
     foundUser.slice(:name, :email)
   end
 
   def post
     foundPost = Post.all.find do |post|
-      post.id == object.object.post_id
+      post.id == object.post_id
     end
     {
       id: foundPost.id,
