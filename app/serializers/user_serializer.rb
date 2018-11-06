@@ -20,10 +20,13 @@ class UserSerializer < ActiveModel::Serializer
         user = User.find(post.user_id)
         {
           id: post.id,
-          user_id: user.id,
-          username: user.name,
+          user: {
+            name: post.user.name,
+            email: post.user.email
+          },
           content: post.content,
-          comments: commentFormat(post.comments)
+          comments: commentFormat(post.comments),
+          likes: post.likes
         }
       end
       {
@@ -42,9 +45,13 @@ class UserSerializer < ActiveModel::Serializer
         user = User.find(post.user_id)
         {
           id: post.id,
-          user: user.name,
+          user: {
+            name: post.user.name,
+            email: post.user.email
+          },
           content: post.content,
-          comments: commentFormat(post.comments)
+          comments: commentFormat(post.comments),
+          likes: post.likes
         }
       end
       {
