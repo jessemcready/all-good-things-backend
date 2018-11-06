@@ -19,13 +19,9 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def comments
-    comments = Comment.where(post_id: object.object.id)
+    comments = Comment.where(post_id: object.object.id).order(id: :desc)
     comments.map do |comment|
-      {
-        id: comment.id,
-        user: comment.user.slice(:name, :email),
-        content: comment.content
-      }
+      CommentSerializer.new(comment)
     end
   end
 
