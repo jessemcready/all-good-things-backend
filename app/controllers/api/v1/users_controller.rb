@@ -1,7 +1,7 @@
 class Api::V1::UsersController < ApplicationController
 
   def index
-    @users = User.all.map do |user|
+    @users = User.order(created_at: :desc).map do |user|
       UserSerializer.new(user)
     end
     render json: @users, status: :ok
