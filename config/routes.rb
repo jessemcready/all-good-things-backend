@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
       delete '/relationships', to: 'relationships#destroy'
       delete '/likes', to: 'likes#destroy'
-      post '/login', to: 'users#login'
+      post '/login', to: 'auth#create'
     end
   end
 

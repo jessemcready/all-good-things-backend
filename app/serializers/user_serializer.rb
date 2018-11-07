@@ -14,7 +14,15 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def followers
-    relationships = Relationship.all.where(follower_id: object.object.id)
+    if object.class != User
+      relationships = Relationship.all.where(follower_id: object.object.id) do |user|
+        user.id == object.object.user_id
+      end
+    else
+      relationships = Relationship.all.where(follower_id: object.id) do |user|
+        user.id == object.user_id
+      end
+    end
     relationships.map do |relationship|
       posts = relationship.followee.posts.map do |post|
         user = User.find(post.user_id)
@@ -39,7 +47,15 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def followees
-    relationships = Relationship.all.where(followee_id: object.object.id)
+    if object.class != User
+      relationships = Relationship.all.where(followee_id: object.object.id) do |user|
+        user.id == object.object.user_id
+      end
+    else
+      relationships = Relationship.all.where(followee_id: object.id) do |user|
+        user.id == object.user_id
+      end
+    end
     relationships.map do |relationship|
       posts = relationship.follower.posts.map do |post|
         user = User.find(post.user_id)
