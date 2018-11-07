@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  before_action :authorized
 
   def encode_token(payload)
     # encode the payload with this secret string
@@ -33,6 +34,11 @@ class ApplicationController < ActionController::API
 
   def logged_in?
     !!current_user
+  end
+
+  def authorized
+    render json: { message: 'Please log in' }, status: :unauthorized
+    unless logged_in?
   end
 
 end
