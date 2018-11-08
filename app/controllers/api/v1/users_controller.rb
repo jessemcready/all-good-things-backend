@@ -40,15 +40,6 @@ class Api::V1::UsersController < ApplicationController
     render json: { message: 'deleted' }, status: :ok
   end
 
-  # def login
-  #   @user = User.find_by(email: params[:email])
-  #   if @user && @user.authenticate(params[:password])
-  #     render json: UserSerializer.new(@user), status: :ok
-  #   else
-  #     render json: { errors: 'User could not be authenticated' }, status: :unprocessible_entity
-  #   end
-  # end
-
   private
 
   def user_params
