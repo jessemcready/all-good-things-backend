@@ -28,7 +28,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update(user_params)
     if @user.save
-      render json: UserSerializer.new(@user), status: :created
+      render json: { user: UserSerializer.new(@user) }, status: :created
     else
       render json: { errors: @user.errors.full_messages }, status: :not_acceptable
     end
