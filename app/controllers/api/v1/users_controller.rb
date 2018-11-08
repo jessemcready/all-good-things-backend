@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create, :destroy]
 
   def index
     @users = User.order(created_at: :desc).map do |user|
@@ -36,6 +36,8 @@ class Api::V1::UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    Relationship.where(follower_id: @user.id).destroy_all
+    Relationship.where(followee_id: @user.id).destroy_all
     @user.destroy
     render json: { message: 'deleted' }, status: :ok
   end
