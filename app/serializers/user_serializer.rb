@@ -30,26 +30,28 @@ class UserSerializer < ActiveModel::Serializer
       end
     end
     relationships.map do |relationship|
-      posts = relationship.followee.posts.map do |post|
-        user = User.find(post.user_id)
+      if relationship.followee
+        posts = relationship.followee.posts.map do |post|
+          user = User.find(post.user_id)
+          {
+            id: post.id,
+            user: {
+              id: user.id,
+              name: user.name,
+              email: user.email
+            },
+            content: post.content,
+            comments: commentFormat(post.comments),
+            likes: post.likes
+          }
+        end
         {
-          id: post.id,
-          user: {
-            id: user.id,
-            name: user.name,
-            email: user.email
-          },
-          content: post.content,
-          comments: commentFormat(post.comments),
-          likes: post.likes
+          id: relationship.followee.id,
+          name: relationship.followee.name,
+          email: relationship.followee.email,
+          posts: posts
         }
       end
-      {
-        id: relationship.followee.id,
-        name: relationship.followee.name,
-        email: relationship.followee.email,
-        posts: posts
-      }
     end
   end
 
