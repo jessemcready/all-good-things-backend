@@ -9,8 +9,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    render json: { user: UserSerializer.new(@user) }, status: :accepted
+    if params[:id] != 'current'
+      @user = User.find(params[:id])
+      render json: { user: UserSerializer.new(@user) }, status: :accepted
+    else
+      render json: { user: UserSerializer.new(current_user) }, status: :accepted
+    end
   end
 
   def create
