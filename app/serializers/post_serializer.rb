@@ -20,6 +20,10 @@ class PostSerializer < ActiveModel::Serializer
 
   def comments
     comments = Comment.where(post_id: object.id).order(id: :desc)
+    if object.class != Post
+      byebug
+      comments << Comment.where(post_id: object.object.id).order(id: :desc)
+    end
     comments.map do |comment|
       CommentSerializer.new(comment)
     end
