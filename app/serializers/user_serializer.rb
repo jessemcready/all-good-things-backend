@@ -8,8 +8,14 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def posts
-    object.posts.map do |post|
-      PostSerializer.new(post)
+    if object.class != User
+      object.object.posts.map do |post|
+        PostSerializer.new(post)
+      end
+    else
+      object.posts.map do |post|
+        PostSerializer.new(post)
+      end
     end
   end
 
