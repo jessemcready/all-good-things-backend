@@ -35,8 +35,9 @@ class UserSerializer < ActiveModel::Serializer
         {
           id: post.id,
           user: {
-            name: post.user.name,
-            email: post.user.email
+            id: user.id,
+            name: user.name,
+            email: user.email
           },
           content: post.content,
           comments: commentFormat(post.comments),
@@ -68,6 +69,7 @@ class UserSerializer < ActiveModel::Serializer
         {
           id: post.id,
           user: {
+            id: post.user.id,
             name: post.user.name,
             email: post.user.email
           },
