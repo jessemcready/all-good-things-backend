@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, except: [:edit]
       resources :comments, except: [:update, :edit]
-      resources :posts, except: [:update, :edit, :destroy]
+      resources :posts, except: [:update, :edit]
       resources :likes, only: [:index, :create, :destroy]
       resources :relationships, only: [:index, :create]
 
