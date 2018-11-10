@@ -1,4 +1,5 @@
 class Api::V1::PostsController < ApplicationController
+  before_action :authorized, only: [:flagged]
 
   def index
     @posts = Post.all.map do |post|
@@ -25,6 +26,15 @@ class Api::V1::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     render json: { message: 'deleted' }, status: :ok
+  end
+
+  def flagged
+    if current_user.admin
+      @posts = Post.where(flagged: true).map do |post|
+        PostSerializer.new(post)
+      end
+      render json: @posts, status: :ok
+    end
   end
 
   private
