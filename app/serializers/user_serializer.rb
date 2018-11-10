@@ -42,7 +42,7 @@ class UserSerializer < ActiveModel::Serializer
             },
             content: post.content,
             comments: commentFormat(post.comments),
-            likes: post.likes
+            likes: post.likes,
             created_at: post.created_at
           }
         end
