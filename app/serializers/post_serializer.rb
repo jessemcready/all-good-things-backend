@@ -1,5 +1,5 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :content, :comments, :likes, :user, :created_at, :updated_at
+  attributes :id, :content, :comments, :likes, :user, :flagged, :created_at, :updated_at
 
   def user
     foundUser = User.all.find do |user|
