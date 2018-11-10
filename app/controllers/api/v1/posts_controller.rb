@@ -28,6 +28,18 @@ class Api::V1::PostsController < ApplicationController
     render json: { message: 'deleted' }, status: :ok
   end
 
+  def report
+    @post = Post.find(params[:id])
+    @post.update(flagged: true)
+    render json: { post: PostSerializer.new(@post) }, status: :created
+  end
+
+  def unreport
+    @post = Post.find(params[:id])
+    @post.update(flagged: false)
+    render json: { post: PostSerializer.new(@post) }, status: :created
+  end
+
   def flagged
     if current_user.admin
       @posts = Post.where(flagged: true).map do |post|
