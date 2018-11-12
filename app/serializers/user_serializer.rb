@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :posts, :likes, :comments, :followers, :followees, :created_at, :updated_at, :admin
+  attributes :id, :name, :email, :posts, :likes, :comments, :followers, :followees, :created_at, :updated_at, :admin, :profile_url
 
   def commentFormat(comments)
     comments.map do |comment|
