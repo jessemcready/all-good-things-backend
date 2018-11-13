@@ -52,6 +52,7 @@ class UserSerializer < ActiveModel::Serializer
           id: relationship.followee.id,
           name: relationship.followee.name,
           email: relationship.followee.email,
+          profile_url: relationship.followee.profile_url,
           posts: posts
         }
       end
