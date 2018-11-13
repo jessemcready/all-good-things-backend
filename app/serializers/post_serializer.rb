@@ -5,7 +5,7 @@ class PostSerializer < ActiveModel::Serializer
     foundUser = User.all.find do |user|
       user.id == object.user_id
     end
-    foundUser.slice(:id, :name, :email)
+    foundUser.slice(:id, :name, :email, :profile_url)
   end
 
   def likes

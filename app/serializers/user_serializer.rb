@@ -38,7 +38,8 @@ class UserSerializer < ActiveModel::Serializer
             user: {
               id: user.id,
               name: user.name,
-              email: user.email
+              email: user.email,
+              profile_url: user.profile_url
             },
             content: post.content,
             comments: commentFormat(post.comments),
