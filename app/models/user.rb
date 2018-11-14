@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   has_secure_password
   validates :email, uniqueness: { case_sensitive: false }
+  validates :email, length: { in: 9..25 }
+  validates :password, length: { in: 4..20 }
+  validates :name, length: { in: 4..35 }
 
   has_many :posts, dependent: :delete_all
   has_many :likes, dependent: :delete_all
