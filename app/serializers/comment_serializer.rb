@@ -1,8 +1,12 @@
 class CommentSerializer < ActiveModel::Serializer
-  attributes :id, :content
-  belongs_to :user
+  attributes :id, :content, :user
   belongs_to :post
 
+  def user
+    @comment_user = User.find(object.user_id)
+    { id: @comment_user.id, name: @comment_user.name, email: @comment_user.email }
+  end
+  #
   # def user
   #   if object.class != Comment
   #     foundUser = User.all.find do |user|

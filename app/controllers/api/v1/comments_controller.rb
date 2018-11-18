@@ -1,10 +1,10 @@
 class Api::V1::CommentsController < ApplicationController
 
   def index
-    @comments = Comment.all.map do |comment|
-      CommentSerializer.new(comment)
-    end
-    render json: @comments, status: :ok
+    # @comments = Comment.all.map do |comment|
+    #   CommentSerializer.new(comment)
+    # end
+    render json: @comments, each_serializer: CommentSerializer, status: :ok
   end
 
   def show

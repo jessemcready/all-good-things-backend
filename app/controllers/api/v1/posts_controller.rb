@@ -2,15 +2,12 @@ class Api::V1::PostsController < ApplicationController
   before_action :authorized, only: [:flagged]
 
   def index
-    @posts = Post.all.map do |post|
-      PostSerializer.new(post)
-    end
     render json: @posts, status: :ok
   end
 
   def show
     @post = Post.find(params[:id])
-    render json: PostSerializer.new(@post), status: :ok
+    render json: @post, status: :ok
   end
 
   def create
@@ -47,6 +44,16 @@ class Api::V1::PostsController < ApplicationController
       end
       render json: @posts, status: :ok
     end
+  end
+
+  def feed
+    current_user.followers.map do |follower|
+      @feed = follower.posts.map do |post|
+        post
+      end
+    end
+    @feed += current_user.posts
+    render json: @feed
   end
 
   private

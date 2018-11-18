@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       delete '/likes', to: 'likes#destroy'
       post '/login', to: 'auth#create'
       get '/flagged', to: 'posts#flagged'
+      get '/feed', to: 'posts#feed'
       post '/report/:id', to: 'posts#report'
       post '/unreport/:id', to: 'posts#unreport'
     end
