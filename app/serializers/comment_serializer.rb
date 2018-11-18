@@ -1,35 +1,37 @@
 class CommentSerializer < ActiveModel::Serializer
-  attributes :id, :content, :user, :post
+  attributes :id, :content
+  belongs_to :user
+  belongs_to :post
 
-  def user
-    if object.class != Comment
-      foundUser = User.all.find do |user|
-        user.id == object.object.user_id
-      end
-    else
-      foundUser = User.all.find do |user|
-        user.id == object.user_id
-      end
-    end
-
-    foundUser.slice(:name, :email)
-  end
-
-  def post
-    if object.class != Comment
-      foundPost = Post.all.find do |post|
-        post.id == object.object.post_id
-      end
-    else
-      foundPost = Post.all.find do |post|
-        post.id == object.post_id
-      end
-    end
-
-    {
-      id: foundPost.id,
-      user: foundPost.user.slice(:name, :email),
-      content: foundPost.content
-    }
-  end
+  # def user
+  #   if object.class != Comment
+  #     foundUser = User.all.find do |user|
+  #       user.id == object.object.user_id
+  #     end
+  #   else
+  #     foundUser = User.all.find do |user|
+  #       user.id == object.user_id
+  #     end
+  #   end
+  #
+  #   foundUser.slice(:name, :email)
+  # end
+  #
+  # def post
+  #   if object.class != Comment
+  #     foundPost = Post.all.find do |post|
+  #       post.id == object.object.post_id
+  #     end
+  #   else
+  #     foundPost = Post.all.find do |post|
+  #       post.id == object.post_id
+  #     end
+  #   end
+  #
+  #   {
+  #     id: foundPost.id,
+  #     user: foundPost.user.slice(:name, :email),
+  #     content: foundPost.content
+  #   }
+  # end
 end
