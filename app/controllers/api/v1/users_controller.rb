@@ -2,9 +2,7 @@ class Api::V1::UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
   def index
-    # @users = User.order(created_at: :desc).map do |user|
-    #   UserSerializer.new(user)
-    # end
+    @users = User.order(created_at: :desc)
     render json: @users, each_serializer: UserSerializer, status: :ok
   end
 

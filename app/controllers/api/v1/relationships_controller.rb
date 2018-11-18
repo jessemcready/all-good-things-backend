@@ -1,9 +1,6 @@
 class Api::V1::RelationshipsController < ApplicationController
 
   def index
-    # @relationships = Relationship.all.map do |relationship|
-    #   RelationshipSerializer.new(relationship)
-    # end
     render json: @relationships, each_serializer: RelationshipSerializer, status: :ok
   end
 

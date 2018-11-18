@@ -1,9 +1,6 @@
 class Api::V1::LikesController < ApplicationController
 
   def index
-    # @likes = Like.all.map do |like|
-    #   LikeSerializer.new(like)
-    # end
     render json: @likes, each_serializer: LikeSerializer, status: :ok
   end
 
