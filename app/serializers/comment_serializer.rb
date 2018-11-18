@@ -3,7 +3,7 @@ class CommentSerializer < ActiveModel::Serializer
   belongs_to :post
 
   def user
-    @comment_user = User.find(object.user_id)
+    @comment_user = object.user
     { id: @comment_user.id, name: @comment_user.name, email: @comment_user.email }
   end
   #

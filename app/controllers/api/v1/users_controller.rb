@@ -2,10 +2,10 @@ class Api::V1::UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
   def index
-    @users = User.order(created_at: :desc).map do |user|
-      UserSerializer.new(user)
-    end
-    render json: @users, status: :ok
+    # @users = User.order(created_at: :desc).map do |user|
+    #   UserSerializer.new(user)
+    # end
+    render json: @users, each_serializer: UserSerializer, status: :ok
   end
 
   def show
@@ -32,7 +32,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update(user_params)
     if @user.save
-      render json: { user: UserSerializer.new(@user) }, status: :created
+      render json: { user: @user }, status: :created
     else
       render json: { errors: @user.errors.full_messages }, status: :not_acceptable
     end

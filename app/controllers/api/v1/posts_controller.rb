@@ -2,12 +2,12 @@ class Api::V1::PostsController < ApplicationController
   before_action :authorized, only: [:flagged]
 
   def index
-    render json: @posts, status: :ok
+    render json: @posts, each_serializer: PostSerializer, status: :ok
   end
 
   def show
     @post = Post.find(params[:id])
-    render json: @post, status: :ok
+    render json: PostSerializer.new(@post), status: :ok
   end
 
   def create

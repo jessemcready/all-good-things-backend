@@ -1,21 +1,18 @@
 class Api::V1::CommentsController < ApplicationController
 
   def index
-    # @comments = Comment.all.map do |comment|
-    #   CommentSerializer.new(comment)
-    # end
     render json: @comments, each_serializer: CommentSerializer, status: :ok
   end
 
   def show
     @comment = Comment.find(params[:id])
-    render json: CommentSerializer.new(@comment), status: :ok
+    render json: @comment, status: :ok
   end
 
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
-      render json: CommentSerializer.new(@comment), status: :created
+      render json: @comment, status: :created
     else
       render json: { errors: @comment.errors.full_messages }, status: :unprocessible_entity
     end

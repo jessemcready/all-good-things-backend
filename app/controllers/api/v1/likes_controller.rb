@@ -1,16 +1,16 @@
 class Api::V1::LikesController < ApplicationController
 
   def index
-    @likes = Like.all.map do |like|
-      LikeSerializer.new(like)
-    end
-    render json: @likes, status: :ok
+    # @likes = Like.all.map do |like|
+    #   LikeSerializer.new(like)
+    # end
+    render json: @likes, each_serializer: LikeSerializer, status: :ok
   end
 
   def create
     @like = Like.new(like_params)
     if @like.save
-      render json: LikeSerializer.new(@like), status: :created
+      render json: @like, status: :created
     else
       render json: { errors: @like.errors.full_messages }, status: :unprocessible_entity
     end
