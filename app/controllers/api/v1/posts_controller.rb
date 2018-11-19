@@ -47,13 +47,13 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def feed
-    current_user.followers.map do |follower|
-      @feed = follower.posts.map do |post|
-        post
+    @feed = current_user.followers.map do |follower|
+      follower.posts.map do |post|
+        { post: post, user: { email: post.user.email, name: post.user.name, profile_url: post.user.profile_url }}
       end
     end
-    @feed += current_user.posts
-    render json: @feed
+    @feed << current_user.posts
+    render json: { posts: @feed }
   end
 
   private
