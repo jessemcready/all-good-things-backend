@@ -49,7 +49,12 @@ class Api::V1::PostsController < ApplicationController
   def feed
     @feed = current_user.followers.map do |follower|
       follower.posts.map do |post|
-        { post: post, user: { email: post.user.email, name: post.user.name, profile_url: post.user.profile_url }}
+        {
+          post: {
+            id: post.id, content: post.content, flagged: post.flagged, likes: post.likes, created_at: post.created_at, user_id: post.user_id, comments: post.comments 
+          },
+        user: { email: post.user.email, name: post.user.name, profile_url: post.user.profile_url }
+        }
       end
     end
     @feed << current_user.posts
