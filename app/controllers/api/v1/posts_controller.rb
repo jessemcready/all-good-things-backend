@@ -53,7 +53,7 @@ class Api::V1::PostsController < ApplicationController
           post: {
             id: post.id, content: post.content, flagged: post.flagged, likes: post.likes, created_at: post.created_at, user_id: post.user_id, comments: post.comments
           },
-        user: { email: post.user.email, name: post.user.name, profile_url: post.user.profile_url }
+        user: { id: post.user.id, email: post.user.email, name: post.user.name, profile_url: post.user.profile_url }
         }
       end
     end
@@ -62,7 +62,7 @@ class Api::V1::PostsController < ApplicationController
         post: {
           id: post.id, content: post.content, flagged: post.flagged, likes: post.likes, created_at: post.created_at, user_id: post.user_id, comments: post.comments
         },
-        user: { email: post.user.email, name: post.user.name, profile_url: post.user.profile_url }
+        user: { id: post.user.id, email: post.user.email, name: post.user.name, profile_url: post.user.profile_url }
       }
     end
     render json: { posts: @feed }
