@@ -46,12 +46,18 @@ class Api::V1::PostsController < ApplicationController
     end
   end
 
+  def format_post_comments(post_comments)
+    post_comments.map do |comment|
+      { id: comment.id, content: comment.content, name: comment.user.name }
+    end
+  end
+
   def feed
     @feed = current_user.followers.map do |follower|
       follower.posts.map do |post|
         {
           post: {
-            id: post.id, content: post.content, flagged: post.flagged, likes: post.likes, created_at: post.created_at, user_id: post.user_id, comments: post.comments
+            id: post.id, content: post.content, flagged: post.flagged, likes: post.likes, created_at: post.created_at, user_id: post.user_id, comments: format_post_comments(post.comments)
           },
         user: { id: post.user.id, email: post.user.email, name: post.user.name, profile_url: post.user.profile_url }
         }
@@ -60,7 +66,7 @@ class Api::V1::PostsController < ApplicationController
     @feed << current_user.posts.map do |post|
       {
         post: {
-          id: post.id, content: post.content, flagged: post.flagged, likes: post.likes, created_at: post.created_at, user_id: post.user_id, comments: post.comments
+          id: post.id, content: post.content, flagged: post.flagged, likes: post.likes, created_at: post.created_at, user_id: post.user_id, comments: format_post_comments(post.comments)
         },
         user: { id: post.user.id, email: post.user.email, name: post.user.name, profile_url: post.user.profile_url }
       }

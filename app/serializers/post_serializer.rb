@@ -7,7 +7,7 @@ class PostSerializer < ActiveModel::Serializer
     end
     sorted_comments.map do |comment|
       @comment_user = comment.user
-      { id: @comment_user.id, profile_url: @comment_user.profile_url, email: @comment_user.email, name: @comment_user.name, content: comment.content }
+      { id: @comment_user.id, profile_url: @comment_user.profile_url, email: @comment_user.email, name: @comment_user.name, content: comment.content, created_at: comment.created_at }
     end
   end
 
