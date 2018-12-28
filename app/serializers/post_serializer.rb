@@ -18,4 +18,9 @@ class PostSerializer < ActiveModel::Serializer
     end
   end
 
+  def user
+    @post_user = object.user
+    { id: @post_user.id, name: @post_user.name, email: @post_user.email, profile_url: @post_user.profile_url }
+  end
+
 end
